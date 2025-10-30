@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GoORMHelperCache">
+    <option name="schemaMapping">
+      <map>
+        <entry key="MSG">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/mousehook/hook.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MSLLHOOKSTRUCT">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/mousehook/hook.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MouseEventService">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/mouse_event_service.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="POINT">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/mousehook/hook.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="RECT">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/mousehook/hook.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SharedData">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/mousehook/hook.go" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="scannedPathMapping">
+      <map>
+        <entry key="file://$PROJECT_DIR$/internal/mousehook/hook.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1761728154482" />
+              <option name="schema">
+                <list>
+                  <option value="POINT" />
+                  <option value="RECT" />
+                  <option value="MSG" />
+                  <option value="MSLLHOOKSTRUCT" />
+                  <option value="SharedData" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1761806164516" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/mouse_event_service.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1761716237899" />
+              <option name="schema">
+                <list>
+                  <option value="MouseEventService" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="tableStructMapping">
+      <map>
+        <entry key="mouse_event_service" value="MouseEventService" />
+        <entry key="msg" value="MSG" />
+        <entry key="msllhookstruct" value="MSLLHOOKSTRUCT" />
+        <entry key="point" value="POINT" />
+        <entry key="rect" value="RECT" />
+        <entry key="shared_data" value="SharedData" />
+      </map>
+    </option>
+    <option name="lastTimeChecked" value="1761790954739" />
+  </component>
+</project>
