@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"pig_assistant/internal/mousehook"
+
+	"github.com/AntNoHuabei/Remo/internal/mousehook"
 
 	"github.com/wailsapp/wails/v3/pkg/application"
 )

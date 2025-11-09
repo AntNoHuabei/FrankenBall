@@ -1,44 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
+import {useCoordGrid} from "./composables-local/useCoordGrid";
 
-const activeIndex = ref<number | null>(null)
+
 const rootEl = ref<HTMLElement | null>(null)
 
 const positionClass = (i: number) => `p${i}`
 
-const setActiveByLocalPoint = (x: number, y: number) => {
-  const el = rootEl.value
-  if (!el) return
-  const width = el.clientWidth
-  const height = el.clientHeight
-  if (width <= 0 || height <= 0) return
-  const nx = Math.min(Math.max(x, 0), width - 1e-6)
-  const ny = Math.min(Math.max(y, 0), height - 1e-6)
-  const col = Math.min(3, Math.floor((nx / width) * 3) + 1) // 1..3
-  const row = Math.min(3, Math.floor((ny / height) * 3) + 1) // 1..3
-  activeIndex.value = (row - 1) * 3 + col
-}
+const {activeFloatingArea,showCoordGrid} = useCoordGrid(rootEl)
 
-const setActiveByClientPoint = (clientX: number, clientY: number) => {
-  const el = rootEl.value
-  if (!el) return
-  const rect = el.getBoundingClientRect()
-  const x = Math.min(Math.max(clientX - rect.left, 0), rect.width)
-  const y = Math.min(Math.max(clientY - rect.top, 0), rect.height)
-  setActiveByLocalPoint(x, y)
-}
-
-defineExpose({ activeIndex, setActiveByLocalPoint, setActiveByClientPoint })
 </script>
 
 <template>
-  <table class="coord-grid" ref="rootEl">
+  <table v-show="showCoordGrid" class="coord-grid" ref="rootEl">
     <tbody>
       <tr v-for="row in 3" :key="row">
         <td v-for="col in 3" :key="col">
           <div
             class="dot"
-            :class="[positionClass((row - 1) * 3 + col), { 'is-active': activeIndex === (row - 1) * 3 + col }]"
+            :class="[positionClass((row - 1) * 3 + col), { 'is-active': activeFloatingArea === (row - 1) * 3 + col }]"
             :data-index="(row - 1) * 3 + col"
           />
         </td>

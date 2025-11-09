@@ -3,10 +3,11 @@ package main
 import (
 	"embed"
 	"fmt"
-	"github.com/wailsapp/wails/v3/pkg/events"
 	"log"
-	"pig_assistant/internal/mousehook"
 	"unsafe"
+
+	"github.com/AntNoHuabei/Remo/internal/mousehook"
+	"github.com/wailsapp/wails/v3/pkg/events"
 
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
@@ -30,8 +31,8 @@ func main() {
 	// 'Bind' is a list of Go struct instances. The frontend has access to the methods of these instances.
 	// 'Mac' options tailor the application when running an macOS.
 	app := application.New(application.Options{
-		Name:        "PigAI_Assistant",
-		Description: "AI猪手",
+		Name:        "Remo",
+		Description: "一个基于Wails的AI悬浮球应用",
 		Services: []application.Service{
 			application.NewService(&MouseEventService{}),
 		},

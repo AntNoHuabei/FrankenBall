@@ -1,3 +1,5 @@
+.idea/
+.vscode/
 .task
 bin
 frontend/dist

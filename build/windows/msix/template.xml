@@ -8,27 +8,27 @@
         AllowPromptForPassword="false">
     </Settings>
     <Installer
-        Path="pig_assistant.exe"
+        Path="Remo.exe"
         Arguments=""
         InstallLocation="C:\Program Files\My Company\My Product">
     </Installer>
     <PackageInformation
-        PackageName="My Product"
-        PackageDisplayName="My Product"
+        PackageName="Remo"
+        PackageDisplayName="Remo"
         PublisherName="CN=My Company"
         PublisherDisplayName="My Company"
         Version="0.1.0.0"
-        PackageDescription="My Product Description">
+        PackageDescription="Remo Description">
         <Capabilities>
             <Capability Name="runFullTrust" />
             
         </Capabilities>
         <Applications>
             <Application
-                Id="com.wails.pig_assistant"
-                Description="My Product Description"
-                DisplayName="My Product"
-                ExecutableName="pig_assistant.exe"
+                Id="com.wails.Remo"
+                Description="Remo Description"
+                DisplayName="Remo"
+                ExecutableName="Remo.exe"
                 EntryPoint="Windows.FullTrustApplication">
                 
             </Application>
@@ -47,7 +47,7 @@
             <Logo>Assets\AppIcon.png</Logo>
         </Properties>
     </PackageInformation>
-    <SaveLocation PackagePath="pig_assistant.msix" />
+    <SaveLocation PackagePath="Remo.msix" />
     <PackageIntegrity>
         <CertificatePath></CertificatePath>
     </PackageIntegrity>

@@ -1,0 +1,1 @@
+export type ViewMode = "ball" | "menu" | "component";

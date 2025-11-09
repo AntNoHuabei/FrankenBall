@@ -70,9 +70,6 @@ export function useMousePosition(options: UseMousePositionOptions = {}) {
       const elements = document.querySelectorAll(sel) as NodeListOf<HTMLElement>
       elements.forEach(el => allElements.add(el))
     })
-    
-
-    console.log("allElements", allElements)
 
     // 绑定所有匹配的元素
     allElements.forEach(el => {

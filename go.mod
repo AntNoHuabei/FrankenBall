@@ -1,4 +1,4 @@
-module pig_assistant
+module github.com/AntNoHuabei/Remo
 
 go 1.24.0
 

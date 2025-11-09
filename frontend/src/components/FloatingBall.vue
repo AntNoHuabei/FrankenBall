@@ -1,15 +1,22 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+
+import {useSharedStatus} from "../composables-local/useSharedStatus";
+import  "@wailsio/runtime";
+const {ballSize} = useSharedStatus();
+
+
+
 
 </script>
 
 <template>
   <div
-    ref="ballRef"
-    class="floating-ball mouse-interactive_drag"
+      ref="ballRef"
+      :style="{width: `${ballSize}px`, height: `${ballSize}px`}"
+      class="floating-ball mouse-drag"
   >
     <div class="ball-content">
-      <div class="ball-icon">🐷</div>
+      <img src="/logo.png" style="width: 60%;height: 60%;-webkit-user-drag: none">
     </div>
   </div>
 </template>
@@ -17,9 +24,6 @@ import { ref, onMounted, onUnmounted } from 'vue'
 <style scoped>
 .floating-ball {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 50%;
   /* cursor: move; */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -28,25 +32,17 @@ import { ref, onMounted, onUnmounted } from 'vue'
   user-select: none;
 }
 
-.floating-ball:hover {
-  transform: scale(1.1);
-}
-
-.floating-ball:active {
-  transform: scale(0.95);
-}
-
 .ball-content {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  user-select: none;
 }
 
 .ball-icon {
-  font-size: 24px;
+  font-size: 48px;
   color: white;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
