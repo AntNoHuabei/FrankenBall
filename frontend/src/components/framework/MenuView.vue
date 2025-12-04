@@ -29,10 +29,11 @@
 <script setup lang="ts">
 import {Sparkle} from "lucide-vue-next";
 import {computed} from "vue";
-import {useMenuItems} from "../composables-local/useMenuItems";
-import {useSharedStatus} from "../composables-local/useSharedStatus";
-import {MenuItem} from "../types/menu";
-
+import {useMenuItems} from "./composables-local/useMenuItems";
+import {useSharedStatus} from "./composables-local/useSharedStatus";
+import {MenuItem} from "./types/menu";
+import {useWindowManager} from "./composables-local/useWindowManager";
+const {createOrRestoreWindow} = useWindowManager();
 const {menuItems} = useMenuItems();
 
 const visibleMenuItems = computed(() => {
@@ -41,8 +42,9 @@ const visibleMenuItems = computed(() => {
 
 const {ballSize} = useSharedStatus();
 
-const handleMenuClick = (menu: MenuItem) => {
+const handleMenuClick = (menuItem: MenuItem) => {
   // console.log("Menu item clicked:", menuId, context);
+  createOrRestoreWindow(menuItem.windowConfig)
 };
 
 </script>

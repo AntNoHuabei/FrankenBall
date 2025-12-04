@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import FloatingBall from "./components/FloatingBall.vue";
-import CoordGrid from "./CoordGrid.vue";
-import {useFloatingMouseEvents} from "./composables-local/useFloatingBallMouseEvents";
-import {useFloatingBallAutoAttachEdge} from "./composables-local/useFloatingBallAutoAttachEdge";
-import MenuView from "./components/MenuView.vue";
-import WindowView from "./components/WindowView/WindowView.vue";
-import {useViewManager} from "./composables-local/useViewManager";
-import {useSharedStatus} from "./composables-local/useSharedStatus";
+import FloatingBall from "./components/framework/FloatingBall.vue";
+import CoordGrid from "./components/framework/CoordGrid.vue";
+import {useFloatingMouseEvents} from "./components/framework/composables-local/useFloatingBallMouseEvents";
+import {useFloatingBallAutoAttachEdge} from "./components/framework/composables-local/useFloatingBallAutoAttachEdge";
+import MenuView from "./components/framework/MenuView.vue";
+import WindowView from "./components/framework/WindowView/WindowView.vue";
+import {useViewManager} from "./components/framework/composables-local/useViewManager";
+import {useSharedStatus} from "./components/framework/composables-local/useSharedStatus";
 
 const appContainerRef = ref<HTMLElement | null>(null);
 
@@ -59,6 +59,7 @@ const {ballSize} = useSharedStatus();
 </template>
 
 <style scoped>
+
 .app-container {
   width: 100vw;
   height: 100vh;
@@ -73,18 +74,10 @@ const {ballSize} = useSharedStatus();
   z-index: 1000;
   overflow: hidden;
   border: #0f0f0f  solid 1px;
-  background: #28284e;
+  background-color: var( --primary-color);
 }
 
-.app-container:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
 
-.app-container:active {
-  /* transform: scale(0.98); */
-  /* cursor: grabbing; */
-}
 
 .drag-header {
   display: flex;

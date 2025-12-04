@@ -36,8 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import {WindowState} from "../../types/window";
-import {useWindowManager} from "../../composables-local/useWindowManager";
+import {WindowState} from "../types/window";
+import {useWindowManager} from "../composables-local/useWindowManager";
 import Window from "./window/Window.vue";
 
 const { attachWindows, notificationWindows, closeWindow, minimizeWindow, bindWindowEl } = useWindowManager({});
@@ -85,7 +85,7 @@ defineExpose({});
   top: 1px;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.95);
+  background-color: var( --primary-color);
   border-radius: 16px;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.12),

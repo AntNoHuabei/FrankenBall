@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {useSharedStatus} from "../composables-local/useSharedStatus";
+import {useSharedStatus} from "./composables-local/useSharedStatus";
 import  "@wailsio/runtime";
 const {ballSize} = useSharedStatus();
 

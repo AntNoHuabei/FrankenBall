@@ -1,13 +1,32 @@
 package mousehook
 
 import (
+	_ "embed"
 	"fmt"
 	"os"
+	"path"
 	"path/filepath"
 	"syscall"
 	"time"
 	"unsafe"
 )
+
+//go:embed hook_dll.dll
+var hook_dll []byte
+var hook_dll_path string
+
+func init() {
+	//将hook_dll释放到临时目录
+	tmpDir, err := os.MkdirTemp("", "mousehook")
+	if err != nil {
+		panic(err)
+	} else {
+		hook_dll_path = path.Join(tmpDir, "hook.dll")
+
+		os.WriteFile(hook_dll_path, hook_dll, 0644)
+	}
+
+}
 
 var (
 	user32                   = syscall.NewLazyDLL("user32.dll")
@@ -98,9 +117,9 @@ const (
 	WA_CLICKACTIVE = 2
 
 	// 自定义消息
-	WM_INSTALL_MOUSE_HOOK   = 0x0400 + 1
-	WM_UNINSTALL_MOUSE_HOOK = 0x0400 + 2
-	WM_SET_FOCUS            = 0x0400 + 3
+	WM_INSTALL_MOUSE_HOOK   = 0x0400 - 1
+	WM_UNINSTALL_MOUSE_HOOK = 0x0400 - 2
+	WM_SET_FOCUS            = 0x0400 - 3
 
 	// DLL控制消息
 	WM_DLL_INSTALL_HOOK        = 0x0401
@@ -789,17 +808,10 @@ func InjectCrossProcessDLL(hwnd HWND) bool {
 	}
 	defer CloseHandle(hProcess)
 
-	// 获取DLL文件路径
-	dllPath, err := GetDLLPath()
-	if err != nil {
-		fmt.Printf("Failed to get DLL path: %v\n", err)
-		return false
-	}
-
-	fmt.Printf("Using DLL: %s\n", dllPath)
+	fmt.Printf("Using DLL: %s\n", hook_dll_path)
 
 	// 执行DLL注入
-	success := InjectDLL(hProcess, dllPath)
+	success := InjectDLL(hProcess, hook_dll_path)
 	if success {
 		fmt.Printf("DLL injection successful!\n")
 

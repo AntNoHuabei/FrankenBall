@@ -2,8 +2,8 @@
 import {onMounted, Ref, ref} from "vue";
 import {useMousePosition} from "../composables/useMousePosition";
 import {useMouseEvents} from "../composables/useMouseEvents";
-import {MouseEventService} from "../../bindings/github.com/AntNoHuabei/Remo";
 import {useSharedStatus} from "./useSharedStatus";
+import {MouseEventService} from "../../../../bindings/github.com/AntNoHuabei/Remo/pkg/services";
 
 const dragState = ref({
     isDragging: false,

@@ -57,7 +57,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useSharedToolbarRef } from "../composables/useSharedToolbarRef";
-import { useWindowManager } from "../../../composables-local/useWindowManager";
+import { useWindowManager } from "../../composables-local/useWindowManager";
 
 const props = defineProps({
   winId: {
@@ -184,7 +184,7 @@ const handleClose = () => {
 .control-btn svg {
   width: 12px;
   height: 12px;
-  color: #00000080;
+  color: #ffffff80;
   transition: color 0.2s ease;
 }
 
@@ -229,7 +229,6 @@ const handleClose = () => {
   overflow: auto;
   overflow-x: hidden;
   background: white;
-  background: url("/images/bg_home.png") no-repeat center center;
   background-size: cover;
 }
 :deep(.window-content .ask-tab .chat-input-area .content-class) {

@@ -39,11 +39,5 @@ const toolbarMouseInside = ref(false);
   position: absolute;
   left: 0;
   top: 0;
-  :deep(.section-title) {
-    font-size: 12px;
-  }
-  :deep(.todo-content .todo-text) {
-    font-size: 12px;
-  }
 }
 </style>

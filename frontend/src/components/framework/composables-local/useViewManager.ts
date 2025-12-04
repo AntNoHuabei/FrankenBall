@@ -3,7 +3,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, Ref,ComponentPublicInstance } from "vue";
 import {useSharedStatus} from "./useSharedStatus";
 import {WindowState} from "../types/window";
-import {Options as WindowManagerOptions} from "../composables-local/useWindowManager";
+import {Options as WindowManagerOptions} from "./useWindowManager";
 import {CloseOptions, MinimizeOptions, ResizeOptions, RestoreOptions, useWindowManager} from "./useWindowManager";
 import {ViewMode} from "../types/view";
 
@@ -94,10 +94,10 @@ export const useViewManager = (option: Options) => {
           todo.push(adjustEleOpacityWithAnim(detail.replacedWindow.el!, 0, false));
         } else if (inTransformView.value.includes("menu")) {
           //如果是从菜单切换过来,则菜单需要隐藏
-          todo.push(adjustEleOpacityWithAnim(menuViewEle.value!.$el, 0, false));
+        //  todo.push(adjustEleOpacityWithAnim(menuViewEle.value!.$el, 0, false));
         } else if (inTransformView.value.includes("ball")) {
           //如果是从悬浮球切换过来,则悬浮球需要隐藏
-          todo.push(adjustEleOpacityWithAnim(ballViewEle.value!.$el, 0, false));
+        //  todo.push(adjustEleOpacityWithAnim(ballViewEle.value!.$el, 0, false));
         }
         //再将透明度设置为1
         todo.push(adjustEleOpacityWithAnim(w.el!, 1));
@@ -142,7 +142,7 @@ export const useViewManager = (option: Options) => {
             Promise.all([
               //最小化 先不要透明度过度....要眼睁睁的看着窗口视图元素尺寸变成一个球
               //adjustEleOpacityWithAnim(w.el!, 0, true),
-              adjustEleOpacityWithAnim(ballViewEle.value!.$el, 1),
+             // adjustEleOpacityWithAnim(ballViewEle.value!.$el, 1),
               adjustRootSizeWithAnim(
                 snapConfig.ballSize,
                 snapConfig.ballSize,
@@ -184,7 +184,7 @@ export const useViewManager = (option: Options) => {
 
             Promise.all([
               adjustEleOpacityWithAnim(w.el!, 0, false),
-              adjustEleOpacityWithAnim(ballViewEle.value!.$el, 1),
+              //adjustEleOpacityWithAnim(ballViewEle.value!.$el, 1),
               adjustRootSizeWithAnim(
                 snapConfig.ballSize,
                 snapConfig.ballSize,

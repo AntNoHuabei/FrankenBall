@@ -1,8 +1,13 @@
 // 获取屏幕宽度的75%
 import { computed, markRaw, ref } from "vue";
-import {PenTool,ListTodo,MessageCircleMore,Settings} from 'lucide-vue-next';
-import {MenuItem} from "../types/menu";
 
+import {PenTool,ListTodo,MessageCircleMore,Settings,Clock4,PocketKnife} from 'lucide-vue-next';
+import {MenuItem} from "../types/menu";
+import Memo from "../../memo/Memo.vue";
+import TodoList from "../../todo/List.vue"
+import WorldTime from "../../worldtime/WorldTime.vue"
+import ChatHome from "../../chat/ChatHome.vue";
+import IT_Tools from "../../tools/IT_Tools.vue";
 function getScreenWidth75Percent(): number {
   return Math.floor(window.screen.width * 0.75);
 }
@@ -25,11 +30,11 @@ export function useMenuItems() {
         windowConfig: {
           name: "ChatWithMe",
           title: "问一问",
-          component: markRaw(MessageCircleMore),
+          component: markRaw(ChatHome),
           type: "AttachWindow",
           layout: {
-            width: 400,
-            height: 500,
+            width: 800,
+            height: 600,
             resizable: true,
           },
           toolbar: {
@@ -46,7 +51,7 @@ export function useMenuItems() {
       windowConfig: {
         name: "QuickNotes",
         title: "备忘录",
-        component: markRaw(PenTool),
+        component: markRaw(Memo),
         type: "AttachWindow",
         layout: {
           width: 400,
@@ -68,17 +73,40 @@ export function useMenuItems() {
       windowConfig: {
         name: "TodoTab",
         title: "待办提醒",
-        component: markRaw(ListTodo),
+        component: markRaw(TodoList),
         type: "AttachWindow",
         layout: {
           width: 350,
-          height: 400,
+          height: 600,
           resizable: true,
         },
         toolbar: {
           show: true,
         },
       },
+    },
+    {
+      
+        id: "it_tools",
+        type: "it_tools",
+        icon: PocketKnife,
+        label: "工具大全",
+        visible: true,
+        windowConfig: {
+          name: "IT_Tools",
+          title: "工具大全",
+          component: markRaw(IT_Tools),
+          type: "AttachWindow",
+          layout: {
+            width: 600,
+            height: 600,
+            resizable: true,
+          },
+          toolbar: {
+            show: true,
+          },
+        },
+      
     },
       {
         id: "settings",

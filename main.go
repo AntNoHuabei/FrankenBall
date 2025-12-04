@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-	"fmt"
+	"github.com/AntNoHuabei/Remo/pkg/services"
 	"log"
 	"unsafe"
 
@@ -34,7 +34,10 @@ func main() {
 		Name:        "Remo",
 		Description: "一个基于Wails的AI悬浮球应用",
 		Services: []application.Service{
-			application.NewService(&MouseEventService{}),
+			application.NewService(&services.MouseEventService{}),
+			application.NewServiceWithOptions(services.NewGinService(), application.ServiceOptions{
+				Route: "/api",
+			}),
 		},
 		Assets: application.AssetOptions{
 			Handler: application.AssetFileServerFS(assets),
@@ -127,7 +130,7 @@ func main() {
 			Name: "WinMain",
 			Windows: application.WindowsWindow{
 				DisableFramelessWindowDecorations: true,
-				HiddenOnTaskbar:                   false,
+				HiddenOnTaskbar:                   true,
 				//ExStyle:                           w32.WS_EX_LAYERED | w32.WS_POPUP,
 			},
 			BackgroundColour: application.NewRGBA(0, 0, 0, 0),
@@ -135,19 +138,18 @@ func main() {
 			Frameless:        false,
 			AlwaysOnTop:      true,
 			DevToolsEnabled:  true,
-			InitialPosition:  application.WindowCentered,
+			InitialPosition:  application.WindowXY,
 			BackgroundType:   application.BackgroundTypeTransparent,
 			StartState:       application.WindowStateNormal,
 			DisableResize:    false,
 			//IgnoreMouseEvents: true,
-			OpenInspectorOnStartup: true,
-			X:                      0,
-			Y:                      0,
-			Width:                  ps.PhysicalWorkArea.Width,
-			Height:                 ps.PhysicalWorkArea.Height,
+			//OpenInspectorOnStartup: true,
+			X:      0,
+			Y:      0,
+			Width:  ps.PhysicalWorkArea.Width,
+			Height: ps.PhysicalWorkArea.Height,
 		})
 		w.OnWindowEvent(events.Windows.WindowActive, func(event *application.WindowEvent) {
-			fmt.Println("========================")
 
 			success := mousehook.SetWindowBorderless(mousehook.HWND(w.NativeWindow()))
 			if success {
@@ -161,6 +163,8 @@ func main() {
 				Width:  ps.WorkArea.Width,
 				Height: ps.WorkArea.Height, //避免窗口达到最大化效果导致 焦点无法获取和下层窗口无法重绘
 			})
+			//w.Maximise()
+			w.SetResizable(false)
 		})
 	})
 
@@ -168,6 +172,13 @@ func main() {
 	//	w.SetIgnoreMouseEvents(true)
 	//	mousehook.InstallMouseHookSimple(w.NativeWindow())
 	//})
+
+	systray := app.SystemTray.New()
+	trayMenu := app.NewMenu()
+	trayMenu.Add("退出").OnClick(func(context *application.Context) {
+		app.Quit()
+	})
+	systray.SetMenu(trayMenu)
 
 	// Run the application. This blocks until the application has been exited.
 	err := app.Run()
