@@ -76,7 +76,7 @@ const emit = defineEmits(["maximize"]);
 
 const isMaximized = ref(false);
 
-const { minimizeWindow, closeWindow, getWindowState } = useWindowManager();
+const { minimizeWindow,maximizeWindow, closeWindow, getWindowState ,setWindowSize} = useWindowManager();
 
 const windowState = getWindowState(props.winId);
 
@@ -97,14 +97,17 @@ const handleMinimize = () => {
 };
 
 const handleMaximize = () => {
+
+
   if (windowState.value?.windowConfig.toolbar?.onMaximize) {
     const isHandled = windowState.value?.windowConfig.toolbar.onMaximize(windowState.value);
     if (!isHandled) {
-      /* empty code*/
+
+      maximizeWindow(props.winId)
     }
     return;
   } else {
-    /* empty code*/
+    maximizeWindow(props.winId)
   }
 };
 

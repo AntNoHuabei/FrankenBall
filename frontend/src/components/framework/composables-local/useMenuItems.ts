@@ -1,13 +1,14 @@
 // 获取屏幕宽度的75%
 import { computed, markRaw, ref } from "vue";
 
-import {PenTool,ListTodo,MessageCircleMore,Settings,Clock4,PocketKnife} from 'lucide-vue-next';
+import {PenTool,ListTodo,MessageCircleMore,Settings,Clock4,PocketKnife,BookOpenText} from 'lucide-vue-next';
 import {MenuItem} from "../types/menu";
 import Memo from "../../memo/Memo.vue";
 import TodoList from "../../todo/List.vue"
 import WorldTime from "../../worldtime/WorldTime.vue"
 import ChatHome from "../../chat/ChatHome.vue";
 import IT_Tools from "../../tools/IT_Tools.vue";
+import MarkdownPreview from "../../mdpreview/MarkdownPreview.vue";
 function getScreenWidth75Percent(): number {
   return Math.floor(window.screen.width * 0.75);
 }
@@ -63,7 +64,27 @@ export function useMenuItems() {
         },
       },
     },
-
+      {
+          id: "markdown-preview",
+          label: "Markdown预览",
+          type: "md-preview",
+          icon: BookOpenText,
+          visible: true,
+          windowConfig: {
+              name: "MarkdownPreview",
+              title: "Markdown预览",
+              component: markRaw(MarkdownPreview),
+              type: "AttachWindow",
+              layout: {
+                  width: 800,
+                  height: 600,
+                  resizable: true,
+              },
+              toolbar: {
+                  show: true,
+              },
+          },
+      },
     {
       id: "ball-todo",
       type: "todo",

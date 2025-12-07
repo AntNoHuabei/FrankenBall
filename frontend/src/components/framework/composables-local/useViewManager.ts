@@ -3,8 +3,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, Ref,ComponentPublicInstance } from "vue";
 import {useSharedStatus} from "./useSharedStatus";
 import {WindowState} from "../types/window";
-import {Options as WindowManagerOptions} from "./useWindowManager";
-import {CloseOptions, MinimizeOptions, ResizeOptions, RestoreOptions, useWindowManager} from "./useWindowManager";
+import {Options as WindowManagerOptions,CloseOptions, MinimizeOptions, ResizeOptions, RestoreOptions, useWindowManager} from "./useWindowManager";
 import {ViewMode} from "../types/view";
 
 export interface Options {
@@ -215,10 +214,26 @@ export const useViewManager = (option: Options) => {
     },
   };
 
-  const { createOrRestoreWindow, setDefaultOptions } = useWindowManager(windowManagerOptions);
+  const { createOrRestoreWindow, setDefaultOptions ,setWindowResizeObserver} = useWindowManager(windowManagerOptions);
 
   // 窗口管理器默认选项
   setDefaultOptions(windowManagerOptions);
+
+
+  setWindowResizeObserver({
+    resize(w: WindowState, detail: ResizeOptions) {
+
+      if(viewMode.value === "component"){
+        if(!detail.targetX ){
+          detail.targetX = lastBallPosition.value.x
+        }
+        if(!detail.targetY){
+          detail.targetY = lastBallPosition.value.y
+        }
+        adjustRootSizeWithAnim(detail.targetWidth, detail.targetHeight, detail.targetX, detail.targetY)
+      }
+    }
+  })
 
   const {
     /**

@@ -18,6 +18,8 @@ export interface RestoreOptions {
 export interface ResizeOptions {
   targetWidth: number;
   targetHeight: number;
+  targetX: number;
+  targetY: number;
 }
 
 export interface CreateOrRestoreWindowOptions {
@@ -54,8 +56,20 @@ let defaultOptions: Options = {
   afterWindowRestore: async () => {},
 };
 
+export type WindowResizeObserver = {
+  resize(w: WindowState, detail: ResizeOptions): void;
+}
+
+let windowResizeObserver: WindowResizeObserver | null = null;
+
 // 窗口管理器
 export function useWindowManager(options?: Options) {
+
+
+  const setWindowResizeObserver = (newObserver: WindowResizeObserver) =>{
+    windowResizeObserver = newObserver;
+  }
+
   if (options) {
     options = { ...defaultOptions, ...options };
   } else {
@@ -328,7 +342,12 @@ export function useWindowManager(options?: Options) {
   // 设置窗口大小
   const setWindowSize = (id: string, width: number, height: number): void => {
     if (windows[id]) {
-      windows[id].size = { width, height };
+      if (!windows[id].size){
+        windows[id].size = { width, height };
+      }else{
+        windows[id].size.width = width;
+        windows[id].size.height = height;
+      }
     }
   };
 
@@ -442,7 +461,7 @@ export function useWindowManager(options?: Options) {
     if (w) {
       try {
         await options?.beforeWindowMaximize?.(w);
-        if (w.windowConfig.type === "FloatingWindow") {
+        if (w.windowConfig.type === "FloatingWindow" || w.windowConfig.type === "AttachWindow") {
           // 获取屏幕尺寸
           const screenWidth = window.innerWidth;
           const screenHeight = window.innerHeight;
@@ -451,9 +470,33 @@ export function useWindowManager(options?: Options) {
           const originalSize = { ...w.size };
           const originalPosition = { ...w.position };
 
-          // 设置为最大化尺寸
-          setWindowPosition(id, 0, 0);
-          setWindowSize(id, screenWidth, screenHeight);
+          const layout = w.windowConfig.layout;
+          if(w.size.width != screenWidth || w.size.height != screenHeight){
+            // 设置为最大化尺寸
+            setWindowPosition(id, 0, 0);
+            setWindowSize(id, screenWidth, screenHeight);
+            if(windowResizeObserver){
+              windowResizeObserver.resize(w,{
+                targetWidth: screenWidth,
+                targetHeight: screenHeight,
+                targetX: 0,
+                targetY: 0,
+              })
+            }
+          }else{
+            setWindowPosition(id, layout.x, layout.y);
+            setWindowSize(id, layout.width, layout.height);
+            if(windowResizeObserver){
+              windowResizeObserver.resize(w,{
+                targetWidth: layout.width,
+                targetHeight: layout.height,
+                targetX: layout.x,
+                targetY: layout.y,
+              })
+            }
+          }
+
+
         }
 
         // 调用窗口配置中的最大化回调函数
@@ -480,11 +523,15 @@ export function useWindowManager(options?: Options) {
         await options?.beforeWindowResize?.(w, {
           targetWidth: width,
           targetHeight: height,
+          targetX: w.position.x,
+          targetY: w.position.y,
         });
         setWindowSize(id, width, height);
         await options?.afterWindowResize?.(w, {
           targetWidth: width,
           targetHeight: height,
+          targetX: w.position.x,
+          targetY: w.position.y,
         });
       } catch (error) {
         console.error("Error resizing window:", error);
@@ -535,5 +582,6 @@ export function useWindowManager(options?: Options) {
     floatingWindows,
     bindWindowEl,
     setDefaultOptions,
+    setWindowResizeObserver
   };
 }
