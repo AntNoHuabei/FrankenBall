@@ -64,32 +64,6 @@
     url("../public/Inter-Medium.ttf") format("truetype");
 }
 
-h3 {
-    font-size: 3em;
-    line-height: 1.1;
-}
-
-a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-}
-
-a:hover {
-    color: #535bf2;
-}
-
-button {
-    width: 60px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 3px;
-    border: none;
-    margin: 0 0 0 20px;
-    padding: 0 8px;
-    cursor: pointer;
-}
-
 .result {
     height: 20px;
     line-height: 20px;
@@ -104,19 +78,7 @@ body {
     height: 100vh;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
 
-h1 {
-    font-size: 3.2em;
-    line-height: 1.1;
-}
 
 #app {
     width: 100vw;
@@ -125,60 +87,20 @@ h1 {
     /*text-align: center;*/
 }
 
-.result {
-    height: 20px;
-    line-height: 20px;
-    margin: 1.5rem auto;
-    text-align: center;
-}
+/*@media (prefers-color-scheme: light) {*/
+/*    :root {*/
+/*        color: #213547;*/
+/*        background-color: #ffffff00;*/
+/*    }*/
 
-.footer {
-    margin-top: 1rem;
-    align-content: center;
-    text-align: center;
-}
+/*    a:hover {*/
+/*        color: #747bff;*/
+/*    }*/
 
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff00;
-    }
-
-    a:hover {
-        color: #747bff;
-    }
-
-    button {
-        background-color: #f9f9f9;
-    }
-}
-
-.input-box .btn:hover {
-    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-    color: #333333;
-}
-
-.input-box .input {
-    border: none;
-    border-radius: 3px;
-    outline: none;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 10px;
-    color: black;
-    background-color: rgba(240, 240, 240, 1);
-    -webkit-font-smoothing: antialiased;
-}
-
-.input-box .input:hover {
-    border: none;
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.input-box .input:focus {
-    border: none;
-    background-color: rgba(255, 255, 255, 1);
-}
+/*    button {*/
+/*        background-color: #f9f9f9;*/
+/*    }*/
+/*}*/
 
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
@@ -252,11 +174,3 @@ h1 {
     --sidebar-ring: oklch(0.556 0 0);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-    }
-  body {
-    @apply bg-background text-foreground;
-    }
-}

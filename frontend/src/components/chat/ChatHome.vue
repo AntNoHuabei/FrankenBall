@@ -7,11 +7,19 @@ import { BulbOutlined, DownOutlined, LoadingOutlined, UpOutlined, UserOutlined,I
 import {Sender, Bubble, BubbleList,Prompts, type BubbleProps, PromptsProps,Welcome} from "ant-design-x-vue";
 import {Empty,Avatar,Button,Space,Typography } from "ant-design-vue";
 
-import markdownit from 'markdown-it';
+import { createMarkdownExit } from 'markdown-exit'
+import { codeToHtml } from 'shiki'
 
+// factory helper
+const md = createMarkdownExit({
+  html:true,
+  linkify:true,
+  async highlight(code, lang) {
+    return codeToHtml(code, {lang, theme: 'nord'});
+  }
+})
 defineOptions({ name: 'AXBubbleWithThinkSetup' });
 
-const md = markdownit({ html: true, breaks: true });
 const  inputValue = ref<string>('')
 
 const {createSession,session, chat} = useChat();
